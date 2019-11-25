@@ -26,7 +26,7 @@ namespace PersonalDataXmlStorageApp.Services
             }
         }
 
-        internal List<Person> GetPersonsFromFile()
+        internal List<Person> GetDataFromFile()
         {
             try
             {

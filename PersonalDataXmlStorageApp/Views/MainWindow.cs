@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace PersonalDataXmlStorageApp
 {
-    public partial class Form1 : Form
+    public partial class Form : System.Windows.Forms.Form
     {
-        public Form1()
+        public Form()
         {
             InitializeComponent();
+        }
+
+        private void uxSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void uxClose_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
