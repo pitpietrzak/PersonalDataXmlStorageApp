@@ -43,7 +43,7 @@
             this.ageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsPersonalData = new System.Windows.Forms.BindingSource(this.components);
             this.uxSave = new System.Windows.Forms.Button();
-            this.uxClose = new System.Windows.Forms.Button();
+            this.uxCancel = new System.Windows.Forms.Button();
             this.uxErrors = new System.Windows.Forms.ErrorProvider(this.components);
             this.uxLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uxPersons)).BeginInit();
@@ -55,7 +55,7 @@
             // 
             this.uxLayout.Controls.Add(this.uxPersons);
             this.uxLayout.Controls.Add(this.uxSave);
-            this.uxLayout.Controls.Add(this.uxClose);
+            this.uxLayout.Controls.Add(this.uxCancel);
             this.uxLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uxLayout.Location = new System.Drawing.Point(0, 0);
             this.uxLayout.Name = "uxLayout";
@@ -160,16 +160,16 @@
             this.uxSave.UseVisualStyleBackColor = true;
             this.uxSave.Click += new System.EventHandler(this.uxSave_Click);
             // 
-            // uxClose
+            // uxCancel
             // 
-            this.uxClose.Enabled = false;
-            this.uxClose.Location = new System.Drawing.Point(525, 405);
-            this.uxClose.Name = "uxClose";
-            this.uxClose.Size = new System.Drawing.Size(516, 32);
-            this.uxClose.TabIndex = 2;
-            this.uxClose.Text = "Cancel";
-            this.uxClose.UseVisualStyleBackColor = true;
-            this.uxClose.Click += new System.EventHandler(this.uxClose_Click);
+            this.uxCancel.Enabled = false;
+            this.uxCancel.Location = new System.Drawing.Point(525, 405);
+            this.uxCancel.Name = "uxCancel";
+            this.uxCancel.Size = new System.Drawing.Size(516, 32);
+            this.uxCancel.TabIndex = 2;
+            this.uxCancel.Text = "Cancel";
+            this.uxCancel.UseVisualStyleBackColor = true;
+            this.uxCancel.Click += new System.EventHandler(this.uxCancel_Click);
             // 
             // uxErrors
             // 
@@ -197,7 +197,7 @@
         private System.Windows.Forms.FlowLayoutPanel uxLayout;
         private System.Windows.Forms.DataGridView uxPersons;
         private System.Windows.Forms.Button uxSave;
-        private System.Windows.Forms.Button uxClose;
+        private System.Windows.Forms.Button uxCancel;
         private System.Windows.Forms.ErrorProvider uxErrors;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lastNameDataGridViewTextBoxColumn;

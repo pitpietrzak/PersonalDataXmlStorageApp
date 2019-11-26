@@ -1,30 +1,36 @@
-﻿using System;
+﻿using PersonalDataXmlStorageApp.Models;
+using PersonalDataXmlStorageApp.Services;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PersonalDataXmlStorageApp
 {
     public partial class Form : System.Windows.Forms.Form
     {
+        private FileService _fileService;
+        private FileService FileService => _fileService ?? (_fileService = new FileService());
+
         public Form()
         {
             InitializeComponent();
+            RefreshData();
+        }
+
+        private void RefreshData()
+        {
+            bsPersonalData.DataSource = FileService.GetDataFromFile();
+            bsPersonalData.ResetBindings(false);
         }
 
         private void uxSave_Click(object sender, EventArgs e)
         {
-
+            var data = (List<Person>)bsPersonalData.DataSource;
+            FileService.SaveDataToFile(data);
         }
 
-        private void uxClose_Click(object sender, EventArgs e)
+        private void uxCancel_Click(object sender, EventArgs e)
         {
-
+            RefreshData();
         }
     }
 }

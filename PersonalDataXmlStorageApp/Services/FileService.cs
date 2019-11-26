@@ -51,5 +51,22 @@ namespace PersonalDataXmlStorageApp.Services
             }
 
         }
-    }
+
+        internal void SaveDataToFile(List<Person> data)
+        {
+            try
+            {
+                var serializer = new XmlSerializer(typeof(List<string>));
+                using (var stream = new StreamWriter($@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\{_fileName}"))
+                {
+                    serializer.Serialize(stream, data);
+                }
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+    } 
 }
