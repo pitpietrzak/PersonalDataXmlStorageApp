@@ -56,7 +56,7 @@ namespace PersonalDataXmlStorageApp.Services
         {
             try
             {
-                var serializer = new XmlSerializer(typeof(List<string>));
+                var serializer = new XmlSerializer(typeof(List<Person>));
                 using (var stream = new StreamWriter($@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\{_fileName}"))
                 {
                     serializer.Serialize(stream, data);

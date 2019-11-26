@@ -29,186 +29,272 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.uxLayout = new System.Windows.Forms.FlowLayoutPanel();
-            this.uxPersons = new System.Windows.Forms.DataGridView();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.streetNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.houseNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.apartmentNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.postalCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.townDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.phoneNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.birthDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsPersonalData = new System.Windows.Forms.BindingSource(this.components);
-            this.uxSave = new System.Windows.Forms.Button();
-            this.uxCancel = new System.Windows.Forms.Button();
-            this.uxErrors = new System.Windows.Forms.ErrorProvider(this.components);
-            this.uxLayout.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.uxPersons)).BeginInit();
+            this.uxErrorProvider = new DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider(this.components);
+            this.dataLayoutControl1 = new DevExpress.XtraDataLayout.DataLayoutControl();
+            this.uxCancel = new DevExpress.XtraEditors.SimpleButton();
+            this.uxSave = new DevExpress.XtraEditors.SimpleButton();
+            this.uxPersons = new DevExpress.XtraGrid.GridControl();
+            this.uxPersonsView = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colLastName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStreetName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colHouseNumber = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colApartmentNumber = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPostalCode = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTown = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPhoneNumber = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colBirthDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAge = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.bsPersonalData)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.uxErrors)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.uxErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataLayoutControl1)).BeginInit();
+            this.dataLayoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.uxPersons)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.uxPersonsView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             this.SuspendLayout();
-            // 
-            // uxLayout
-            // 
-            this.uxLayout.Controls.Add(this.uxPersons);
-            this.uxLayout.Controls.Add(this.uxSave);
-            this.uxLayout.Controls.Add(this.uxCancel);
-            this.uxLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.uxLayout.Location = new System.Drawing.Point(0, 0);
-            this.uxLayout.Name = "uxLayout";
-            this.uxLayout.Size = new System.Drawing.Size(1046, 444);
-            this.uxLayout.TabIndex = 0;
-            // 
-            // uxPersons
-            // 
-            this.uxPersons.AutoGenerateColumns = false;
-            this.uxPersons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.uxPersons.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nameDataGridViewTextBoxColumn,
-            this.lastNameDataGridViewTextBoxColumn,
-            this.streetNameDataGridViewTextBoxColumn,
-            this.houseNumberDataGridViewTextBoxColumn,
-            this.apartmentNumberDataGridViewTextBoxColumn,
-            this.postalCodeDataGridViewTextBoxColumn,
-            this.townDataGridViewTextBoxColumn,
-            this.phoneNumberDataGridViewTextBoxColumn,
-            this.birthDateDataGridViewTextBoxColumn,
-            this.ageDataGridViewTextBoxColumn});
-            this.uxPersons.DataSource = this.bsPersonalData;
-            this.uxPersons.GridColor = System.Drawing.SystemColors.ActiveBorder;
-            this.uxPersons.Location = new System.Drawing.Point(3, 3);
-            this.uxPersons.Name = "uxPersons";
-            this.uxPersons.Size = new System.Drawing.Size(1043, 396);
-            this.uxPersons.TabIndex = 0;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "First Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // lastNameDataGridViewTextBoxColumn
-            // 
-            this.lastNameDataGridViewTextBoxColumn.DataPropertyName = "LastName";
-            this.lastNameDataGridViewTextBoxColumn.HeaderText = "Last Name";
-            this.lastNameDataGridViewTextBoxColumn.Name = "lastNameDataGridViewTextBoxColumn";
-            // 
-            // streetNameDataGridViewTextBoxColumn
-            // 
-            this.streetNameDataGridViewTextBoxColumn.DataPropertyName = "StreetName";
-            this.streetNameDataGridViewTextBoxColumn.HeaderText = "Street Name";
-            this.streetNameDataGridViewTextBoxColumn.Name = "streetNameDataGridViewTextBoxColumn";
-            // 
-            // houseNumberDataGridViewTextBoxColumn
-            // 
-            this.houseNumberDataGridViewTextBoxColumn.DataPropertyName = "HouseNumber";
-            this.houseNumberDataGridViewTextBoxColumn.HeaderText = "House Number";
-            this.houseNumberDataGridViewTextBoxColumn.Name = "houseNumberDataGridViewTextBoxColumn";
-            // 
-            // apartmentNumberDataGridViewTextBoxColumn
-            // 
-            this.apartmentNumberDataGridViewTextBoxColumn.DataPropertyName = "ApartmentNumber";
-            this.apartmentNumberDataGridViewTextBoxColumn.HeaderText = "Apartment Number";
-            this.apartmentNumberDataGridViewTextBoxColumn.Name = "apartmentNumberDataGridViewTextBoxColumn";
-            // 
-            // postalCodeDataGridViewTextBoxColumn
-            // 
-            this.postalCodeDataGridViewTextBoxColumn.DataPropertyName = "PostalCode";
-            this.postalCodeDataGridViewTextBoxColumn.HeaderText = "Postal Code";
-            this.postalCodeDataGridViewTextBoxColumn.Name = "postalCodeDataGridViewTextBoxColumn";
-            // 
-            // townDataGridViewTextBoxColumn
-            // 
-            this.townDataGridViewTextBoxColumn.DataPropertyName = "Town";
-            this.townDataGridViewTextBoxColumn.HeaderText = "Town";
-            this.townDataGridViewTextBoxColumn.Name = "townDataGridViewTextBoxColumn";
-            // 
-            // phoneNumberDataGridViewTextBoxColumn
-            // 
-            this.phoneNumberDataGridViewTextBoxColumn.DataPropertyName = "PhoneNumber";
-            this.phoneNumberDataGridViewTextBoxColumn.HeaderText = "Phone Number";
-            this.phoneNumberDataGridViewTextBoxColumn.Name = "phoneNumberDataGridViewTextBoxColumn";
-            // 
-            // birthDateDataGridViewTextBoxColumn
-            // 
-            this.birthDateDataGridViewTextBoxColumn.DataPropertyName = "BirthDate";
-            this.birthDateDataGridViewTextBoxColumn.HeaderText = "Birth Date";
-            this.birthDateDataGridViewTextBoxColumn.Name = "birthDateDataGridViewTextBoxColumn";
-            // 
-            // ageDataGridViewTextBoxColumn
-            // 
-            this.ageDataGridViewTextBoxColumn.DataPropertyName = "Age";
-            this.ageDataGridViewTextBoxColumn.HeaderText = "Age";
-            this.ageDataGridViewTextBoxColumn.Name = "ageDataGridViewTextBoxColumn";
-            this.ageDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // bsPersonalData
             // 
             this.bsPersonalData.DataSource = typeof(PersonalDataXmlStorageApp.Models.Person);
             // 
-            // uxSave
+            // uxErrorProvider
             // 
-            this.uxSave.Enabled = false;
-            this.uxSave.Location = new System.Drawing.Point(3, 405);
-            this.uxSave.Name = "uxSave";
-            this.uxSave.Size = new System.Drawing.Size(516, 32);
-            this.uxSave.TabIndex = 1;
-            this.uxSave.Text = "Save";
-            this.uxSave.UseVisualStyleBackColor = true;
-            this.uxSave.Click += new System.EventHandler(this.uxSave_Click);
+            this.uxErrorProvider.ContainerControl = this;
+            this.uxErrorProvider.DataSource = this.bsPersonalData;
+            // 
+            // dataLayoutControl1
+            // 
+            this.dataLayoutControl1.Controls.Add(this.uxCancel);
+            this.dataLayoutControl1.Controls.Add(this.uxSave);
+            this.dataLayoutControl1.Controls.Add(this.uxPersons);
+            this.dataLayoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataLayoutControl1.Location = new System.Drawing.Point(0, 0);
+            this.dataLayoutControl1.Name = "dataLayoutControl1";
+            this.dataLayoutControl1.Root = this.Root;
+            this.dataLayoutControl1.Size = new System.Drawing.Size(1046, 223);
+            this.dataLayoutControl1.TabIndex = 0;
+            this.dataLayoutControl1.Text = "dataLayoutControl1";
             // 
             // uxCancel
             // 
             this.uxCancel.Enabled = false;
-            this.uxCancel.Location = new System.Drawing.Point(525, 405);
+            this.uxCancel.Location = new System.Drawing.Point(525, 189);
             this.uxCancel.Name = "uxCancel";
-            this.uxCancel.Size = new System.Drawing.Size(516, 32);
-            this.uxCancel.TabIndex = 2;
+            this.uxCancel.Size = new System.Drawing.Size(509, 22);
+            this.uxCancel.StyleController = this.dataLayoutControl1;
+            this.uxCancel.TabIndex = 5;
             this.uxCancel.Text = "Cancel";
-            this.uxCancel.UseVisualStyleBackColor = true;
             this.uxCancel.Click += new System.EventHandler(this.uxCancel_Click);
             // 
-            // uxErrors
+            // uxSave
             // 
-            this.uxErrors.ContainerControl = this;
-            this.uxErrors.DataSource = this.bsPersonalData;
+            this.uxSave.Enabled = false;
+            this.uxSave.Location = new System.Drawing.Point(12, 189);
+            this.uxSave.Name = "uxSave";
+            this.uxSave.Size = new System.Drawing.Size(509, 22);
+            this.uxSave.StyleController = this.dataLayoutControl1;
+            this.uxSave.TabIndex = 1;
+            this.uxSave.Text = "Save";
+            this.uxSave.Click += new System.EventHandler(this.uxSave_Click);
+            // 
+            // uxPersons
+            // 
+            this.uxPersons.DataSource = this.bsPersonalData;
+            this.uxPersons.Location = new System.Drawing.Point(12, 12);
+            this.uxPersons.MainView = this.uxPersonsView;
+            this.uxPersons.Name = "uxPersons";
+            this.uxPersons.Size = new System.Drawing.Size(1022, 173);
+            this.uxPersons.TabIndex = 4;
+            this.uxPersons.UseEmbeddedNavigator = true;
+            this.uxPersons.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.uxPersonsView});
+            // 
+            // uxPersonsView
+            // 
+            this.uxPersonsView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colName,
+            this.colLastName,
+            this.colStreetName,
+            this.colHouseNumber,
+            this.colApartmentNumber,
+            this.colPostalCode,
+            this.colTown,
+            this.colPhoneNumber,
+            this.colBirthDate,
+            this.colAge});
+            this.uxPersonsView.GridControl = this.uxPersons;
+            this.uxPersonsView.Name = "uxPersonsView";
+            this.uxPersonsView.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.Inplace;
+            this.uxPersonsView.OptionsFind.AllowFindPanel = false;
+            this.uxPersonsView.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
+            this.uxPersonsView.OptionsView.ShowGroupPanel = false;
+            this.uxPersonsView.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.uxPersonsView_CellValueChanged);
+            this.uxPersonsView.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.uxPersonsView_InvalidRowException);
+            this.uxPersonsView.ValidateRow += new DevExpress.XtraGrid.Views.Base.ValidateRowEventHandler(this.uxPersonsView_ValidateRow);
+            // 
+            // colName
+            // 
+            this.colName.FieldName = "Name";
+            this.colName.Name = "colName";
+            this.colName.Visible = true;
+            this.colName.VisibleIndex = 0;
+            // 
+            // colLastName
+            // 
+            this.colLastName.FieldName = "LastName";
+            this.colLastName.Name = "colLastName";
+            this.colLastName.Visible = true;
+            this.colLastName.VisibleIndex = 1;
+            // 
+            // colStreetName
+            // 
+            this.colStreetName.FieldName = "StreetName";
+            this.colStreetName.Name = "colStreetName";
+            this.colStreetName.Visible = true;
+            this.colStreetName.VisibleIndex = 2;
+            // 
+            // colHouseNumber
+            // 
+            this.colHouseNumber.FieldName = "HouseNumber";
+            this.colHouseNumber.Name = "colHouseNumber";
+            this.colHouseNumber.Visible = true;
+            this.colHouseNumber.VisibleIndex = 3;
+            // 
+            // colApartmentNumber
+            // 
+            this.colApartmentNumber.FieldName = "ApartmentNumber";
+            this.colApartmentNumber.Name = "colApartmentNumber";
+            this.colApartmentNumber.Visible = true;
+            this.colApartmentNumber.VisibleIndex = 4;
+            // 
+            // colPostalCode
+            // 
+            this.colPostalCode.FieldName = "PostalCode";
+            this.colPostalCode.Name = "colPostalCode";
+            this.colPostalCode.Visible = true;
+            this.colPostalCode.VisibleIndex = 5;
+            // 
+            // colTown
+            // 
+            this.colTown.FieldName = "Town";
+            this.colTown.Name = "colTown";
+            this.colTown.Visible = true;
+            this.colTown.VisibleIndex = 6;
+            // 
+            // colPhoneNumber
+            // 
+            this.colPhoneNumber.FieldName = "PhoneNumber";
+            this.colPhoneNumber.Name = "colPhoneNumber";
+            this.colPhoneNumber.Visible = true;
+            this.colPhoneNumber.VisibleIndex = 7;
+            // 
+            // colBirthDate
+            // 
+            this.colBirthDate.FieldName = "BirthDate";
+            this.colBirthDate.Name = "colBirthDate";
+            this.colBirthDate.Visible = true;
+            this.colBirthDate.VisibleIndex = 8;
+            // 
+            // colAge
+            // 
+            this.colAge.FieldName = "Age";
+            this.colAge.Name = "colAge";
+            this.colAge.OptionsColumn.ReadOnly = true;
+            this.colAge.Visible = true;
+            this.colAge.VisibleIndex = 9;
+            // 
+            // Root
+            // 
+            this.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.Root.GroupBordersVisible = false;
+            this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem1,
+            this.layoutControlItem2,
+            this.layoutControlItem3});
+            this.Root.Name = "Root";
+            this.Root.Size = new System.Drawing.Size(1046, 223);
+            this.Root.TextVisible = false;
+            // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.uxPersons;
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(1026, 177);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem1.TextVisible = false;
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.uxSave;
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 177);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(513, 26);
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem2.TextVisible = false;
+            // 
+            // layoutControlItem3
+            // 
+            this.layoutControlItem3.Control = this.uxCancel;
+            this.layoutControlItem3.Location = new System.Drawing.Point(513, 177);
+            this.layoutControlItem3.Name = "layoutControlItem3";
+            this.layoutControlItem3.Size = new System.Drawing.Size(513, 26);
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem3.TextVisible = false;
             // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1046, 444);
-            this.Controls.Add(this.uxLayout);
+            this.ClientSize = new System.Drawing.Size(1046, 223);
+            this.Controls.Add(this.dataLayoutControl1);
             this.Name = "Form";
             this.Text = "PersonalDataXmlStorage";
-            this.uxLayout.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.uxPersons)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsPersonalData)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.uxErrors)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.uxErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataLayoutControl1)).EndInit();
+            this.dataLayoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.uxPersons)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.uxPersonsView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.BindingSource bsPersonalData;
-        private System.Windows.Forms.FlowLayoutPanel uxLayout;
-        private System.Windows.Forms.DataGridView uxPersons;
-        private System.Windows.Forms.Button uxSave;
-        private System.Windows.Forms.Button uxCancel;
-        private System.Windows.Forms.ErrorProvider uxErrors;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lastNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn streetNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn houseNumberDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn apartmentNumberDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn postalCodeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn townDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn phoneNumberDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn birthDateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ageDataGridViewTextBoxColumn;
+        private DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider uxErrorProvider;
+        private DevExpress.XtraDataLayout.DataLayoutControl dataLayoutControl1;
+        private DevExpress.XtraEditors.SimpleButton uxCancel;
+        private DevExpress.XtraEditors.SimpleButton uxSave;
+        private DevExpress.XtraGrid.GridControl uxPersons;
+        private DevExpress.XtraGrid.Views.Grid.GridView uxPersonsView;
+        private DevExpress.XtraLayout.LayoutControlGroup Root;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private DevExpress.XtraGrid.Columns.GridColumn colName;
+        private DevExpress.XtraGrid.Columns.GridColumn colLastName;
+        private DevExpress.XtraGrid.Columns.GridColumn colStreetName;
+        private DevExpress.XtraGrid.Columns.GridColumn colHouseNumber;
+        private DevExpress.XtraGrid.Columns.GridColumn colApartmentNumber;
+        private DevExpress.XtraGrid.Columns.GridColumn colPostalCode;
+        private DevExpress.XtraGrid.Columns.GridColumn colTown;
+        private DevExpress.XtraGrid.Columns.GridColumn colPhoneNumber;
+        private DevExpress.XtraGrid.Columns.GridColumn colBirthDate;
+        private DevExpress.XtraGrid.Columns.GridColumn colAge;
     }
 }
 

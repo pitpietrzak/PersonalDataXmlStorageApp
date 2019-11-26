@@ -1,11 +1,19 @@
-﻿using System;
+﻿using DevExpress.XtraEditors.DXErrorProvider;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
 namespace PersonalDataXmlStorageApp.Models
 {
-    public class Person : INotifyPropertyChanged
+    public class Person : INotifyPropertyChanged, IDXDataErrorInfo
     {
+        [XmlIgnore]
+        private Dictionary<string, bool> _errors = new Dictionary<string, bool>();
+
         private int _id;
 
         public int Id
@@ -114,9 +122,9 @@ namespace PersonalDataXmlStorageApp.Models
             }
         }
 
-        private DateTime _birthDate;
+        private DateTime? _birthDate;
 
-        public DateTime BirthDate
+        public DateTime? BirthDate
         {
             get => _birthDate;
             set
@@ -126,15 +134,21 @@ namespace PersonalDataXmlStorageApp.Models
             }
         }
 
-        public int Age
+        public int? Age
         {
             get
             {
-                DateTime now = DateTime.Today;
-                int age = now.Year - BirthDate.Year;
-                if (now < BirthDate.AddYears(age)) age--;
-
-                return age;
+                if (BirthDate.HasValue)
+                {
+                    DateTime now = DateTime.Today;
+                    int age = now.Year - BirthDate.Value.Year;
+                    if (now < BirthDate.Value.AddYears(age)) age--;
+                    return age;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -142,7 +156,7 @@ namespace PersonalDataXmlStorageApp.Models
         public bool IsDirty { get; set; }
 
         [XmlIgnore]
-        public bool IsNew { get; set; }
+        public bool HasErrors { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -158,5 +172,51 @@ namespace PersonalDataXmlStorageApp.Models
             if (makeDirty)
                 IsDirty = true;
         }
+
+        public void GetPropertyError(string propertyName, ErrorInfo info)
+        {
+            if (propertyName == "Age" || propertyName == "ApartmentNumber")
+                return;
+
+            if (propertyName == "Name" && string.IsNullOrEmpty(Name))
+                info.ErrorText = @"Enter first name";
+            if (propertyName == "LastName" && string.IsNullOrEmpty(LastName))
+                info.ErrorText = @"Enter last name";
+            if (propertyName == "StreetName" && string.IsNullOrEmpty(StreetName))
+                info.ErrorText = @"Enter street name";
+            if (propertyName == "HouseNumber" && string.IsNullOrEmpty(HouseNumber))
+                info.ErrorText = @"Enter house number";
+            if (propertyName == "PostalCode" && string.IsNullOrEmpty(PostalCode))
+                info.ErrorText = @"Enter postal code";
+            if (propertyName == "PostalCode" && !string.IsNullOrEmpty(PostalCode) && !Regex.Match(PostalCode, @"[0-9]{2}\-[0-9]{3}").Success)
+                info.ErrorText = @"Postal code format should be: NN-NNN";
+            if (propertyName == "Town" && string.IsNullOrEmpty(Town))
+                info.ErrorText = @"Enter town";
+            if (propertyName == "PhoneNumber" && string.IsNullOrEmpty(PhoneNumber))
+                info.ErrorText = @"Enter phone number";
+            if (propertyName == "BirthDate" && !BirthDate.HasValue)
+                info.ErrorText = @"Enter birth date";
+
+            if (!string.IsNullOrEmpty(info.ErrorText))
+            {
+                if (!_errors.ContainsKey(propertyName))
+                {
+                    _errors.Add(propertyName,true);
+                }
+            }
+            else
+            {
+                if (_errors.ContainsKey(propertyName))
+                {
+                    _errors.Remove(propertyName);
+                }
+            }
+
+            HasErrors = _errors.Values.Count > 0 ? true : false;
+        }
+
+       
+        public void GetError(ErrorInfo info)
+        {}
     }
 }
