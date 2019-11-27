@@ -104,7 +104,7 @@ namespace PersonalDataXmlStorageApp
             if (e.ExceptionMode != ExceptionMode.Ignore) return;
             uxPersonsView.CancelUpdateCurrentRow();
             var data = (List<Person>)bsPersonalData.DataSource;
-            if (!data.Any(x => !x.HasErrors && x.IsDirty))
+            if (!data.Any(x => !x.HasErrors && x.IsDirty) && !ListToDelete.Any())
             {
                 DisableButtons();
             }
