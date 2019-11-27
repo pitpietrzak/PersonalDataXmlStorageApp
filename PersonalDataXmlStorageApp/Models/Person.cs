@@ -207,7 +207,6 @@ namespace PersonalDataXmlStorageApp.Models
             HasErrors = _errors.Values.Count > 0;
         }
 
-       
         public void GetError(ErrorInfo info)
         {}
 
