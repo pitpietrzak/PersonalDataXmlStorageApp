@@ -149,6 +149,9 @@ namespace PersonalDataXmlStorageApp.Models
         public bool IsDirty { get; set; }
 
         [XmlIgnore]
+        public bool IsDeleted { get; set; }
+
+        [XmlIgnore]
         public bool HasErrors { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -209,6 +212,11 @@ namespace PersonalDataXmlStorageApp.Models
 
         public void GetError(ErrorInfo info)
         {}
+
+        public void MarkDeleted()
+        {
+            IsDeleted = true;
+        }
 
         protected virtual void OnPropertyChanged(string propertyName)
         {

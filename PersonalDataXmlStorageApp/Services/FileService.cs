@@ -83,6 +83,17 @@ namespace PersonalDataXmlStorageApp.Services
             }
         }
 
+        private void DeletePerson(Person person)
+        {
+            XDocument xmlDoc = XDocument.Load(_fileName);
+            var connectionToDelete = (from xml2 in xmlDoc.Descendants("Person")
+                where xml2.Element("Id")?.Value == person.Id.ToString()
+                select xml2).FirstOrDefault();
+
+            connectionToDelete?.Remove();
+            xmlDoc.Save(_fileName);
+        }
+
         private void SetIds(IEnumerable<Person> persons, int maxId)
         {
             foreach (var person in persons)
@@ -121,6 +132,7 @@ namespace PersonalDataXmlStorageApp.Services
                     {
                         person.IsDirty = false;
                         person.IsNew = false;
+                        person.IsDeleted = false;
                     }
 
                     return persons;
@@ -144,6 +156,11 @@ namespace PersonalDataXmlStorageApp.Services
         {
             try
             {
+                foreach (var person in data.Where(x => x.IsDeleted && x.Id != 0))
+                {
+                    DeletePerson(person);
+                }
+
                 foreach (var person in data.Where(x=>x.IsDirty && !x.IsNew))
                 {
                     EditPerson(person);

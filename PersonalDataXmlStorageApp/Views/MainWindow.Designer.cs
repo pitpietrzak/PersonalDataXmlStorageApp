@@ -143,6 +143,7 @@
             this.uxPersonsView.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
             this.uxPersonsView.OptionsView.ShowGroupPanel = false;
             this.uxPersonsView.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.uxPersonsView_InvalidRowException);
+            this.uxPersonsView.RowDeleted += new DevExpress.Data.RowDeletedEventHandler(this.uxPersonsView_RowDeleted);
             this.uxPersonsView.ValidateRow += new DevExpress.XtraGrid.Views.Base.ValidateRowEventHandler(this.uxPersonsView_ValidateRow);
             // 
             // colName

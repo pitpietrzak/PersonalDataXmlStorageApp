@@ -13,8 +13,11 @@ namespace PersonalDataXmlStorageApp
         private FileService _fileService;
         private FileService FileService => _fileService ?? (_fileService = new FileService());
 
+        public readonly List<Person> ListToDelete;
+
         public Form()
         {
+            ListToDelete = new List<Person>();
             InitializeComponent();
             RefreshData();
         }
@@ -49,7 +52,8 @@ namespace PersonalDataXmlStorageApp
             try
             {
                 var data = (List<Person>)bsPersonalData.DataSource;
-                var dataToSave = data.Where(x => !x.HasErrors).ToList();
+                data.AddRange(ListToDelete);
+                var dataToSave = data.Where(x => (!x.HasErrors && (x.IsNew || x.IsDirty)) || ListToDelete.Any()).ToList();
                 DisableButtons();
                 if (!dataToSave.Any())
                 {
@@ -104,6 +108,14 @@ namespace PersonalDataXmlStorageApp
             {
                 DisableButtons();
             }
+        }
+
+        private void uxPersonsView_RowDeleted(object sender, DevExpress.Data.RowDeletedEventArgs e)
+        {
+            var person = (Person) e.Row;
+            person.MarkDeleted();
+            ListToDelete.Add(person);
+            EnableButtons();
         }
 
         private void DisableButtons()
