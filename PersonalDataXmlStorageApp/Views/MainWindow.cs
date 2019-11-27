@@ -13,11 +13,11 @@ namespace PersonalDataXmlStorageApp
         private FileService _fileService;
         private FileService FileService => _fileService ?? (_fileService = new FileService());
 
-        public List<Person> ListToDelete;
+        private List<Person> _listToDelete;
 
         public Form()
         {
-            ListToDelete = new List<Person>();
+            _listToDelete = new List<Person>();
             InitializeComponent();
             RefreshData();
         }
@@ -26,7 +26,7 @@ namespace PersonalDataXmlStorageApp
         {
             try
             {
-                ListToDelete = new List<Person>();
+                _listToDelete = new List<Person>();
                 bsPersonalData.DataSource = FileService.GetDataFromFile();
                 bsPersonalData.ResetBindings(false);
 
@@ -53,14 +53,14 @@ namespace PersonalDataXmlStorageApp
             try
             {
                 var data = (List<Person>)bsPersonalData.DataSource;
-                var dataToSave = data.Where(x => (!x.HasErrors && (x.IsNew || x.IsDirty)) || ListToDelete.Any()).ToList();
-                DisableButtons();
+                var dataToSave = data.Where(x => (!x.HasErrors && (x.IsNew || x.IsDirty)) || _listToDelete.Any()).ToList();
                 if (!dataToSave.Any())
                 {
                     return;
                 }
 
-                FileService.SaveDataToFile(dataToSave, ListToDelete);               
+                FileService.SaveDataToFile(dataToSave, _listToDelete);        
+                RefreshData();
             }
             catch (Exception ex)
             {
@@ -104,7 +104,7 @@ namespace PersonalDataXmlStorageApp
             if (e.ExceptionMode != ExceptionMode.Ignore) return;
             uxPersonsView.CancelUpdateCurrentRow();
             var data = (List<Person>)bsPersonalData.DataSource;
-            if (!data.Any(x => !x.HasErrors && x.IsDirty) && !ListToDelete.Any())
+            if (!data.Any(x => !x.HasErrors && x.IsDirty) && !_listToDelete.Any())
             {
                 DisableButtons();
             }
@@ -116,7 +116,7 @@ namespace PersonalDataXmlStorageApp
             if (person.Id != 0)
             {
                 person.MarkDeleted();
-                ListToDelete.Add(person);
+                _listToDelete.Add(person);
             }
             EnableButtons();
         }
