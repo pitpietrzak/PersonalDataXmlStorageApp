@@ -13,7 +13,7 @@ namespace PersonalDataXmlStorageApp
         private FileService _fileService;
         private FileService FileService => _fileService ?? (_fileService = new FileService());
 
-        public readonly List<Person> ListToDelete;
+        public List<Person> ListToDelete;
 
         public Form()
         {
@@ -26,6 +26,7 @@ namespace PersonalDataXmlStorageApp
         {
             try
             {
+                ListToDelete = new List<Person>();
                 bsPersonalData.DataSource = FileService.GetDataFromFile();
                 bsPersonalData.ResetBindings(false);
 
@@ -52,7 +53,6 @@ namespace PersonalDataXmlStorageApp
             try
             {
                 var data = (List<Person>)bsPersonalData.DataSource;
-                data.AddRange(ListToDelete);
                 var dataToSave = data.Where(x => (!x.HasErrors && (x.IsNew || x.IsDirty)) || ListToDelete.Any()).ToList();
                 DisableButtons();
                 if (!dataToSave.Any())
@@ -60,7 +60,7 @@ namespace PersonalDataXmlStorageApp
                     return;
                 }
 
-                FileService.SaveDataToFile(dataToSave);               
+                FileService.SaveDataToFile(dataToSave, ListToDelete);               
             }
             catch (Exception ex)
             {

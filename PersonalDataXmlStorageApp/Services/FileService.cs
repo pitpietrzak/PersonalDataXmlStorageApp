@@ -152,19 +152,13 @@ namespace PersonalDataXmlStorageApp.Services
 
         }
 
-        internal void SaveDataToFile(List<Person> data)
+        internal void SaveDataToFile(List<Person> data, List<Person> toDelete)
         {
             try
             {
-                var deleted = data.Where(x => x.IsDeleted).ToList();
-                foreach (var person in deleted)
+                foreach (var person in toDelete)
                 {
                     DeletePerson(person);
-                }
-
-                if (deleted.Any())
-                {
-                    data = data.Except(deleted).ToList();
                 }
 
                 foreach (var person in data.Where(x=>x.IsDirty && !x.IsNew))
