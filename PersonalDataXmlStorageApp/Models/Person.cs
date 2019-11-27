@@ -1,9 +1,7 @@
 ﻿using DevExpress.XtraEditors.DXErrorProvider;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
@@ -12,19 +10,7 @@ namespace PersonalDataXmlStorageApp.Models
     public class Person : INotifyPropertyChanged, IDXDataErrorInfo
     {
         [XmlIgnore]
-        private Dictionary<string, bool> _errors = new Dictionary<string, bool>();
-
-        private int _id;
-
-        public int Id
-        {
-            get => _id;
-            set
-            {
-                _id = value;
-                OnPropertyChanged(nameof(Id));
-            }
-        }
+        private readonly Dictionary<string, bool> _errors = new Dictionary<string, bool>();
 
         private string _name;
 
@@ -212,7 +198,7 @@ namespace PersonalDataXmlStorageApp.Models
                 }
             }
 
-            HasErrors = _errors.Values.Count > 0 ? true : false;
+            HasErrors = _errors.Values.Count > 0;
         }
 
        

@@ -21,21 +21,47 @@ namespace PersonalDataXmlStorageApp
 
         private void RefreshData()
         {
-            bsPersonalData.DataSource = FileService.GetDataFromFile();
-            bsPersonalData.ResetBindings(false);
+            try
+            {
+                bsPersonalData.DataSource = FileService.GetDataFromFile();
+                bsPersonalData.ResetBindings(false);
 
-            DisableButtons();
+                DisableButtons();
+            }
+            catch(Exception e)
+            {
+                var messageBox = MessageBox.Show($@"{e.Message} Would you create new file?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                if (messageBox == DialogResult.Yes)
+                {
+                    FileService.CreateNewFile();
+                    RefreshData();
+                }
+                else
+                {
+                    Environment.Exit(1);
+                }
+            }
+            
         }
 
         private void uxSave_Click(object sender, EventArgs e)
         {
-            var data = (List<Person>)bsPersonalData.DataSource;
-            var correctData = data.Where(x => !x.HasErrors && x.IsDirty).ToList();
-            if (!correctData.Any())
-                return;
+            try
+            {
+                var data = (List<Person>)bsPersonalData.DataSource;
+                var dataToSave = data.Where(x => !x.HasErrors && x.IsDirty).ToList();
+                DisableButtons();
+                if (!dataToSave.Any())
+                {
+                    return;
+                }
 
-            FileService.SaveDataToFile(correctData);
-            DisableButtons();
+                FileService.SaveDataToFile(dataToSave);               
+            }
+            catch (Exception ex)
+            {
+                var messageBox = MessageBox.Show($@"{ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);                                           
+            }
         }
 
         private void uxCancel_Click(object sender, EventArgs e)
@@ -50,7 +76,11 @@ namespace PersonalDataXmlStorageApp
                 var currentRow = (Person)e.Row;
                 if (currentRow.HasErrors)
                 {
-                    throw new Exception("Row contains empty required fields !");
+                    throw new Exception(@"Row contains empty required fields !");
+                }
+                else
+                {
+                    EnableButtons();
                 }
             }
             catch (Exception ex)
@@ -62,22 +92,15 @@ namespace PersonalDataXmlStorageApp
 
         private void uxPersonsView_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
         {             
-            var message = $@"{e.ErrorText}. Czy chcesz poprawić wartość?";
-            e.ExceptionMode = MessageBox.Show(message, "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error) == DialogResult.OK ? ExceptionMode.NoAction : ExceptionMode.Ignore;
-            if (e.ExceptionMode == ExceptionMode.Ignore)
+            var message = $@"{e.ErrorText} Would you like correct row?";
+            e.ExceptionMode = MessageBox.Show(message, @"Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error) == DialogResult.OK ? ExceptionMode.NoAction : ExceptionMode.Ignore;
+            if (e.ExceptionMode != ExceptionMode.Ignore) return;
+            uxPersonsView.CancelUpdateCurrentRow();
+            var data = (List<Person>)bsPersonalData.DataSource;
+            if (!data.Any(x => !x.HasErrors && x.IsDirty))
             {
-                uxPersonsView.CancelUpdateCurrentRow();
-                var data = (List<Person>)bsPersonalData.DataSource;
-                if (!data.Any())
-                {
-                    DisableButtons();
-                }
+                DisableButtons();
             }
-        }
-
-        private void uxPersonsView_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
-        {
-            EnableButtons();
         }
 
         private void DisableButtons()

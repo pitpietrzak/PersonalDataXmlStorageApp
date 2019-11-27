@@ -45,6 +45,7 @@
             this.colTown = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPhoneNumber = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBirthDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.uxBirthDateRepository = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.colAge = new DevExpress.XtraGrid.Columns.GridColumn();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -56,6 +57,8 @@
             this.dataLayoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uxPersons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uxPersonsView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.uxBirthDateRepository)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.uxBirthDateRepository.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
@@ -112,6 +115,8 @@
             this.uxPersons.Location = new System.Drawing.Point(12, 12);
             this.uxPersons.MainView = this.uxPersonsView;
             this.uxPersons.Name = "uxPersons";
+            this.uxPersons.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.uxBirthDateRepository});
             this.uxPersons.Size = new System.Drawing.Size(1022, 173);
             this.uxPersons.TabIndex = 4;
             this.uxPersons.UseEmbeddedNavigator = true;
@@ -137,12 +142,12 @@
             this.uxPersonsView.OptionsFind.AllowFindPanel = false;
             this.uxPersonsView.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
             this.uxPersonsView.OptionsView.ShowGroupPanel = false;
-            this.uxPersonsView.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.uxPersonsView_CellValueChanged);
             this.uxPersonsView.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.uxPersonsView_InvalidRowException);
             this.uxPersonsView.ValidateRow += new DevExpress.XtraGrid.Views.Base.ValidateRowEventHandler(this.uxPersonsView_ValidateRow);
             // 
             // colName
             // 
+            this.colName.Caption = "First Name";
             this.colName.FieldName = "Name";
             this.colName.Name = "colName";
             this.colName.Visible = true;
@@ -199,10 +204,22 @@
             // 
             // colBirthDate
             // 
+            this.colBirthDate.Caption = "Date of Birth";
+            this.colBirthDate.ColumnEdit = this.uxBirthDateRepository;
             this.colBirthDate.FieldName = "BirthDate";
             this.colBirthDate.Name = "colBirthDate";
             this.colBirthDate.Visible = true;
             this.colBirthDate.VisibleIndex = 8;
+            // 
+            // uxBirthDateRepository
+            // 
+            this.uxBirthDateRepository.AutoHeight = false;
+            this.uxBirthDateRepository.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.uxBirthDateRepository.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.uxBirthDateRepository.MaxValue = new System.DateTime(2019, 11, 27, 16, 21, 28, 0);
+            this.uxBirthDateRepository.Name = "uxBirthDateRepository";
             // 
             // colAge
             // 
@@ -265,6 +282,8 @@
             this.dataLayoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.uxPersons)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uxPersonsView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.uxBirthDateRepository.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.uxBirthDateRepository)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
@@ -295,6 +314,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colPhoneNumber;
         private DevExpress.XtraGrid.Columns.GridColumn colBirthDate;
         private DevExpress.XtraGrid.Columns.GridColumn colAge;
+        private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit uxBirthDateRepository;
     }
 }
 

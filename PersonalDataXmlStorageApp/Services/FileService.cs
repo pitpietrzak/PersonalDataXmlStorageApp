@@ -8,13 +8,13 @@ namespace PersonalDataXmlStorageApp.Services
 {
     public class FileService
     {
-        private const string _fileName = @"PersonalData.xml";
+        private const string FileName = @"PersonalData.xml";
 
-        private void CreateNewFile()
+        internal void CreateNewFile()
         {
             try
             {
-                using (var writer = new StreamWriter($@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\{_fileName}"))
+                using (var writer = new StreamWriter($@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\{FileName}"))
                 {
                     var serializer = new XmlSerializer(typeof(List<Person>));
                     serializer.Serialize(writer, new List<Person>());
@@ -30,10 +30,14 @@ namespace PersonalDataXmlStorageApp.Services
         {
             try
             {
-                using (var stream = new StreamReader($@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\{_fileName}"))
+                using (var stream = new StreamReader($@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\{FileName}"))
                 {
                     var serializer = new XmlSerializer(typeof(List<Person>));
                     var persons = (List<Person>)serializer.Deserialize(stream);
+
+                    foreach (var person in persons) {
+                        person.IsDirty = false;
+                    }
 
                     return persons;
                 }
@@ -57,7 +61,7 @@ namespace PersonalDataXmlStorageApp.Services
             try
             {
                 var serializer = new XmlSerializer(typeof(List<Person>));
-                using (var stream = new StreamWriter($@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\{_fileName}"))
+                using (var stream = new StreamWriter($@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\{FileName}"))
                 {
                     serializer.Serialize(stream, data);
                 }
