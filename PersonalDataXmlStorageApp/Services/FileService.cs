@@ -156,15 +156,16 @@ namespace PersonalDataXmlStorageApp.Services
         {
             try
             {
-                foreach (var person in data.Where(x => x.IsDeleted))
+                var deleted = data.Where(x => x.IsDeleted).ToList();
+                foreach (var person in deleted)
                 {
-                    if (person.Id != 0)
-                    {
-                        DeletePerson(person);
-                    }
+                    DeletePerson(person);
+                }
 
-                    data.Remove(person);
-                } 
+                if (deleted.Any())
+                {
+                    data = data.Except(deleted).ToList();
+                }
 
                 foreach (var person in data.Where(x=>x.IsDirty && !x.IsNew))
                 {

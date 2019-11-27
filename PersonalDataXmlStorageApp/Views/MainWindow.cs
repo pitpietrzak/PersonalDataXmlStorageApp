@@ -113,8 +113,11 @@ namespace PersonalDataXmlStorageApp
         private void uxPersonsView_RowDeleted(object sender, DevExpress.Data.RowDeletedEventArgs e)
         {
             var person = (Person) e.Row;
-            person.MarkDeleted();
-            ListToDelete.Add(person);
+            if (person.Id != 0)
+            {
+                person.MarkDeleted();
+                ListToDelete.Add(person);
+            }
             EnableButtons();
         }
 
