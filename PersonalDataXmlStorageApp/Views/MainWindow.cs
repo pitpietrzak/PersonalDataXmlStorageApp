@@ -30,7 +30,7 @@ namespace PersonalDataXmlStorageApp
             }
             catch(Exception e)
             {
-                var messageBox = MessageBox.Show($@"{e.Message} Would you create new file?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                var messageBox = MessageBox.Show($@"{e.Message} Would you create new file?", @"Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                 if (messageBox == DialogResult.Yes)
                 {
                     FileService.CreateNewFile();
@@ -49,7 +49,7 @@ namespace PersonalDataXmlStorageApp
             try
             {
                 var data = (List<Person>)bsPersonalData.DataSource;
-                var dataToSave = data.Where(x => !x.HasErrors && x.IsDirty).ToList();
+                var dataToSave = data.Where(x => !x.HasErrors).ToList();
                 DisableButtons();
                 if (!dataToSave.Any())
                 {
@@ -60,7 +60,7 @@ namespace PersonalDataXmlStorageApp
             }
             catch (Exception ex)
             {
-                var messageBox = MessageBox.Show($@"{ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);                                           
+                MessageBox.Show($@"{ex.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -78,10 +78,13 @@ namespace PersonalDataXmlStorageApp
                 {
                     throw new Exception(@"Row contains empty required fields !");
                 }
-                else
+
+                if (currentRow.Id == 0)
                 {
-                    EnableButtons();
+                    currentRow.IsNew = true;
                 }
+
+                EnableButtons();
             }
             catch (Exception ex)
             {

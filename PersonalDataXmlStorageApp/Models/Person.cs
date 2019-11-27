@@ -12,15 +12,17 @@ namespace PersonalDataXmlStorageApp.Models
         [XmlIgnore]
         private readonly Dictionary<string, bool> _errors = new Dictionary<string, bool>();
 
-        private string _name;
+        public int Id { get; set; }
 
-        public string Name
+        private string _firstName;
+
+        public string FirstName
         {
-            get => _name;
+            get => _firstName;
             set
             {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
+                _firstName = value;
+                OnPropertyChanged(nameof(FirstName));
             }
         }
 
@@ -108,6 +110,7 @@ namespace PersonalDataXmlStorageApp.Models
             }
         }
 
+        [XmlIgnore]
         private DateTime? _birthDate;
 
         public DateTime? BirthDate
@@ -124,19 +127,23 @@ namespace PersonalDataXmlStorageApp.Models
         {
             get
             {
-                if (BirthDate.HasValue)
-                {
-                    DateTime now = DateTime.Today;
-                    int age = now.Year - BirthDate.Value.Year;
-                    if (now < BirthDate.Value.AddYears(age)) age--;
-                    return age;
-                }
-                else
-                {
-                    return null;
-                }
+                if (!BirthDate.HasValue) return null;
+                var now = DateTime.Today;
+                var age = now.Year - BirthDate.Value.Year;
+                if (now < BirthDate.Value.AddYears(age)) age--;
+                return age;
+
             }
         }
+        
+        public string DateOfBirth
+        {
+            get => BirthDate != null ? BirthDate.Value.ToShortDateString() : string.Empty;
+            set => BirthDate = DateTime.Parse(value);
+        }
+
+        [XmlIgnore]
+        public bool IsNew { get; set; }
 
         [XmlIgnore]
         public bool IsDirty { get; set; }
@@ -146,42 +153,41 @@ namespace PersonalDataXmlStorageApp.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            OnPropertyChanged(propertyName, true);
-        }
-
-        protected virtual void OnPropertyChanged(string propertyName, bool makeDirty)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-            if (makeDirty)
-                IsDirty = true;
-        }
-
         public void GetPropertyError(string propertyName, ErrorInfo info)
         {
-            if (propertyName == "Age" || propertyName == "ApartmentNumber")
-                return;
-
-            if (propertyName == "Name" && string.IsNullOrEmpty(Name))
-                info.ErrorText = @"Enter first name";
-            if (propertyName == "LastName" && string.IsNullOrEmpty(LastName))
-                info.ErrorText = @"Enter last name";
-            if (propertyName == "StreetName" && string.IsNullOrEmpty(StreetName))
-                info.ErrorText = @"Enter street name";
-            if (propertyName == "HouseNumber" && string.IsNullOrEmpty(HouseNumber))
-                info.ErrorText = @"Enter house number";
-            if (propertyName == "PostalCode" && string.IsNullOrEmpty(PostalCode))
-                info.ErrorText = @"Enter postal code";
-            if (propertyName == "PostalCode" && !string.IsNullOrEmpty(PostalCode) && !Regex.Match(PostalCode, @"[0-9]{2}\-[0-9]{3}").Success)
-                info.ErrorText = @"Postal code format should be: NN-NNN";
-            if (propertyName == "Town" && string.IsNullOrEmpty(Town))
-                info.ErrorText = @"Enter town";
-            if (propertyName == "PhoneNumber" && string.IsNullOrEmpty(PhoneNumber))
-                info.ErrorText = @"Enter phone number";
-            if (propertyName == "BirthDate" && !BirthDate.HasValue)
-                info.ErrorText = @"Enter birth date";
+            switch (propertyName)
+            {
+                case "Age":
+                case "ApartmentNumber":
+                    return;
+                case "FirstName" when string.IsNullOrEmpty(FirstName):
+                    info.ErrorText = @"Enter first name";
+                    break;
+                case "LastName" when string.IsNullOrEmpty(LastName):
+                    info.ErrorText = @"Enter last name";
+                    break;
+                case "StreetName" when string.IsNullOrEmpty(StreetName):
+                    info.ErrorText = @"Enter street name";
+                    break;
+                case "HouseNumber" when string.IsNullOrEmpty(HouseNumber):
+                    info.ErrorText = @"Enter house number";
+                    break;
+                case "PostalCode" when string.IsNullOrEmpty(PostalCode):
+                    info.ErrorText = @"Enter postal code";
+                    break;
+                case "PostalCode" when !string.IsNullOrEmpty(PostalCode) && !Regex.Match(PostalCode, @"^\d{2}(?:[-\s]\d{3})?$").Success:
+                    info.ErrorText = @"Postal code format should be: NN-NNN";
+                    break;
+                case "Town" when string.IsNullOrEmpty(Town):
+                    info.ErrorText = @"Enter town";
+                    break;
+                case "PhoneNumber" when string.IsNullOrEmpty(PhoneNumber):
+                    info.ErrorText = @"Enter phone number";
+                    break;
+                case "BirthDate" when !BirthDate.HasValue:
+                    info.ErrorText = @"Enter birth date";
+                    break;
+            }
 
             if (!string.IsNullOrEmpty(info.ErrorText))
             {
@@ -204,5 +210,18 @@ namespace PersonalDataXmlStorageApp.Models
        
         public void GetError(ErrorInfo info)
         {}
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            OnPropertyChanged(propertyName, true);
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName, bool makeDirty)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+            if (makeDirty)
+                IsDirty = true;
+        }
     }
 }
