@@ -14,6 +14,32 @@ namespace PersonalDataXmlStorageApp.Services
         private readonly string _fileName =
             $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Persons.xml";
 
+        private void AddPerson(Person person)
+        {
+            var doc = XDocument.Load(_fileName);
+            var element = new XElement("Person");
+            element.Add(new XElement("Id", person.Id));
+            element.Add(new XElement("FirstName", person.FirstName));
+            element.Add(new XElement("LastName", person.LastName));
+            element.Add(new XElement("StreetName", person.StreetName));
+            element.Add(new XElement("HouseNumber", person.HouseNumber));
+            if (!string.IsNullOrEmpty(person.ApartmentNumber))
+            {
+                element.Add(new XElement("ApartmentNumber", person.ApartmentNumber));
+            }
+            element.Add(new XElement("PostalCode", person.PostalCode));
+            element.Add(new XElement("Town", person.Town));
+            element.Add(new XElement("PhoneNumber", person.PhoneNumber));
+            element.Add(new XElement("DateOfBirth", person.DateOfBirth));
+
+
+            doc.Element("ArrayOfPerson")?.Add(element);
+            doc.Save(_fileName);
+
+            person.IsDirty = false;
+            person.IsNew = false;
+        }
+
         private void EditPerson(Person person)
         {
             var xml = new XmlDocument();
@@ -136,32 +162,6 @@ namespace PersonalDataXmlStorageApp.Services
             {
                 throw new Exception(e.Message);
             }
-        }
-
-        internal void AddPerson(Person person)
-        {
-            var doc = XDocument.Load(_fileName);
-            var element = new XElement("Person");
-            element.Add(new XElement("Id", person.Id));
-            element.Add(new XElement("FirstName", person.FirstName));
-            element.Add(new XElement("LastName", person.LastName));
-            element.Add(new XElement("StreetName", person.StreetName));
-            element.Add(new XElement("HouseNumber", person.HouseNumber));
-            if (!string.IsNullOrEmpty(person.ApartmentNumber))
-            {
-                element.Add(new XElement("ApartmentNumber", person.ApartmentNumber));
-            }
-            element.Add(new XElement("PostalCode", person.PostalCode));
-            element.Add(new XElement("Town", person.Town));
-            element.Add(new XElement("PhoneNumber", person.PhoneNumber));
-            element.Add(new XElement("DateOfBirth", person.DateOfBirth));
-
-
-            doc.Element("ArrayOfPerson")?.Add(element);
-            doc.Save(_fileName);
-
-            person.IsDirty = false;
-            person.IsNew = false;
         }
     } 
 }
