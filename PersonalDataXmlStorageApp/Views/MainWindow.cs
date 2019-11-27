@@ -53,8 +53,8 @@ namespace PersonalDataXmlStorageApp
             try
             {
                 var data = (List<Person>)bsPersonalData.DataSource;
-                var dataToSave = data.Where(x => (!x.HasErrors && (x.IsNew || x.IsDirty)) || _listToDelete.Any()).ToList();
-                if (!dataToSave.Any())
+                var dataToSave = data.Where(x => !x.HasErrors && (x.IsNew || x.IsDirty)).ToList();
+                if (!dataToSave.Any() && !_listToDelete.Any())
                 {
                     return;
                 }
